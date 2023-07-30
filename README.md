@@ -7,6 +7,7 @@ Friday Night Funkin': Psych Engine Utility by Ghost to make programming easier w
 GhostUtil provides a lot of unique variables and functions for you to mess around!
 
 ## How do I use GhostUtil?
+### * GhostUtil is only tested on 0.6.3
 It's simple. Put the "ghostutil" folder onto the main folder (where the .exe is located)
 
 Now let's make a new script. Add these:
