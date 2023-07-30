@@ -44,7 +44,7 @@ end
 (`local modc = require "ghostutil.Modcharts"` is not needed if you already have the requires" 
 
 MORE EXAMPLES ON `Ghost-s-Utilities/examples`!!
-**CHECK OUT THE (WIKI)[https://github.com/GhostglowDev/Ghost-s-Utilities/wiki] FOR MORE FUNCTIONS.**
+**CHECK OUT THE [WIKI](https://github.com/GhostglowDev/Ghost-s-Utilities/wiki) FOR MORE FUNCTIONS.**
 
 ## Note
 When using the `Window` class, add `window.init()` before doing anything with the Window functions/variables
