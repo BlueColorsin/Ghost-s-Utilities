@@ -20,8 +20,7 @@ local modc = require "ghostutil.Modcharts"
 local util = require "ghostutil.Util"
 local wind = require "ghostutil.Window"
 ```
-
-These are for loading up all the modules from GhostUtil and try it out!
+These functions are responsible for loading up the modules from GhostUtil
 
 ## Let's try messing with the script.
 From `up-n-down.lua` from `examples/modchart`;
