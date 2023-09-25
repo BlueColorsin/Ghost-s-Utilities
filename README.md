@@ -1,7 +1,7 @@
 # Ghost' s Utilities
 Friday Night Funkin': Psych Engine Utility by Ghost to make programming easier with more variables and unique functions
 
-## You wanna code easier in Psych Engine Lua because you're trash at i-?
+## You're struggling to code in Psych Engine LUA?
 ### Well, use GhostUtil!
 
 GhostUtil provides a lot of unique variables and functions for you to mess around!
@@ -15,10 +15,8 @@ Now let's make a new script. Add these:
 local colr = require "ghostutil.Color"
 local debg = require "ghostutil.Debug"
 local game = require "ghostutil.Game"
-local meth = require "ghostutil.Math"
---[[ the variable must not be "math". It will mess
-up the already built-in math functions on lua ]]
-local modc = require "ghostutil.Modcharts" -- Modcharts is still WIP
+local math = require "ghostutil.Math" -- Naming the variable "math" is now possible in GhostUtil >1.0.0
+local modc = require "ghostutil.Modcharts"
 local util = require "ghostutil.Util"
 local wind = require "ghostutil.Window"
 ```
@@ -33,7 +31,7 @@ local bool = false
 
 function onBeatHit()
     if curBeat % 8 == 0 then
-        if bool == false then bool = true else bool = false end
+        bool = not bool
         for i = 0,7 do
             modc.downscroll(i, bool, 2, "expoOut", true)
         end
