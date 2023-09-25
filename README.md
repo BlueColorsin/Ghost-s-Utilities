@@ -21,7 +21,7 @@ local util = require "ghostutil.Util"
 local wind = require "ghostutil.Window"
 ```
 
-These are for loading up all the "classes" from GhostUtil
+These are for loading up all the modules from GhostUtil and try it out!
 
 ## Let's try messing with the script.
 From `up-n-down.lua` from `examples/modchart`;
