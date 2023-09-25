@@ -89,10 +89,10 @@ mt.roundDecimal = mt.round
 ---@param x number Number
 ---@param d number Target amount of decimals (Optional, default = 2)
 ---@return number
-mt.round = function(x, d)
+mt.round = function(x, dc)
     if x ~= nil then 
         addHaxeLibrary("Highscore")
-        return runHaxeCode("return Highscore.floorDecimal("..x..", "..d..");")
+        return runHaxeCode("return Highscore.floorDecimal("..x..", "..dc..");")
     else
         d.error("math.floorDecimal:1: No value is stated")
         return nil

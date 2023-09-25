@@ -12,7 +12,6 @@ local d = require "ghostutil.Debug"
 ---@param withUi boolean Do you want the UI to be in their own "scroll" position?
 ---@param modchartTag string The tag for the `onTweenCompleted()` function
 modchart.downscroll = function(note, toggle, duration, ease, withUi, modchartTag)
-    toggle = u.toBool(toggle);
     if not u.isBool(toggle) then d.error("modchart.downscroll:2: Expected a boolean") end 
 
     local notes = {y = {defaultOpponentStrumY0,defaultOpponentStrumY1,defaultOpponentStrumY2,defaultOpponentStrumY3,defaultPlayerStrumY0,defaultPlayerStrumY1,defaultPlayerStrumY2,defaultPlayerStrumY3}}
@@ -41,7 +40,6 @@ end
 ---@param ease string FlxEase
 ---@param modchartTag string Tag for the function `onTweenCompleted()` - The tag will be [yourTag]<index> (e.g. MyTag1) for the the second note
 modchart.middlescroll = function(toggle, opponentVisible, duration, ease, modchartTag)
-    toggle = u.toBool(toggle);
     if not u.isBool(toggle) then d.error("modchart.middlescroll:1: Expected a boolean") end
     local midPos = {dad = {82, 194, 971, 1083}, bf = {412, 524, 636, 748}}
     local notes = {x = {defaultOpponentStrumX0,defaultOpponentStrumX1,defaultOpponentStrumX2,defaultOpponentStrumX3,defaultPlayerStrumX0,defaultPlayerStrumX1,defaultPlayerStrumX2,defaultPlayerStrumX3}}
@@ -58,7 +56,6 @@ end
 ---@param ease string FlxEase
 ---@param modchartTag string Tag for the function `onTweenCompleted()`
 modchart.swapStrums = function(swap, duration, ease, modchartTag)
-    swap = u.toBool(swap);
     if not u.isBool(swap) then d.error("modchart.swapStrums:1: Expected a boolean") end
     local notes = {x = {defaultOpponentStrumX0,defaultOpponentStrumX1,defaultOpponentStrumX2,defaultOpponentStrumX3,defaultPlayerStrumX0,defaultPlayerStrumX1,defaultPlayerStrumX2,defaultPlayerStrumX3}}
     for i = 0,7 do

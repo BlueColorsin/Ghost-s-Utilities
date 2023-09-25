@@ -32,6 +32,13 @@ util.isBool = function(v)
     return type(v) == "boolean"
 end
 
+---Checks if a value if a number type
+---@param v any
+---@return boolean
+util.isNumber = function(v)
+    return type(v) == "number"
+end
+
 ---Basically, `debugPrint()` with Color
 ---@param color string FlxColor
 ---@param text string
