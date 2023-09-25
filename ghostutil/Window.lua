@@ -1,11 +1,9 @@
 local window = {};
----@module GhostUtil
 ---@class Window
 
-local u = require "ghostutil.Util"
-local c = require "ghostutil.Color"
 local d = require "ghostutil.Debug"
 
+---Simply loads the library "Application" from `lime.app`
 window.init = function() 
     addHaxeLibrary("Application", "lime.app");
 end
@@ -13,11 +11,25 @@ end
 window.defaultHeight = 720;
 window.defaultWidth = 1280;
 
+---Sets the window position to the target value
+---@param x number
+---@param y number
+window.setPosition = function(x, y)
+    window.setProperty("x", x); window.setProperty("y", y);
+end
+
+---Closes the window
+window.close = function()
+    os.exit()
+end
+
+---Tweens the window X position to the target value
+---@param value number Target X position to tween to
+---@param duration number The time it takes to complete
+---@param ease string FlxEase
+---@param onCompleteTag string Tag for the `onTweenComplete()` function
 window.windowTweenX = function(value, duration, ease, onCompleteTag)
-    if value == nil then
-        d.error("window.windowTweenX:1: Value is null/nil")
-        -- Error format: (script_directory):GhostUtil: (function):(parameter): (error)
-    else
+    if value == nil then d.error("window.windowTweenX:1: Value is null/nil") else
         runHaxeCode([[
             var winX:FlxTween;
             if (winX != null) winX.cancel();
@@ -28,6 +40,11 @@ window.windowTweenX = function(value, duration, ease, onCompleteTag)
     end
 end
 
+---Tweens the window Y position to the target value
+---@param value number Target Y position to tween to
+---@param duration number The time it takes to complete
+---@param ease string FlxEase
+---@param onCompleteTag string Tag for the `onTweenComplete()` function
 window.windowTweenY = function(value, duration, ease, onCompleteTag)
     if value == nil then
         d.error("window.windowTweenY:1: Value is null/nil")
@@ -43,6 +60,8 @@ window.windowTweenY = function(value, duration, ease, onCompleteTag)
     end
 end
 
+---Disclaimer: Only works when the window is in fullscreen / default size
+---@param xy string x, y or xy
 window.screenCenter = function(xy)
     if (xy or "xy") == "xy" then
         window.setProperty("x", 320)
@@ -57,6 +76,11 @@ window.screenCenter = function(xy)
     end
 end
 
+---Disclaimer: Only works when the window is in fullscreen / default size
+---@param xy string x, y or xy
+---@param duration number The time it takes to complete
+---@param ease string FlxEase
+---@param onCompleteTag string Tag for the `onTweenComplete()` function
 window.tweenToCenter = function(xy, duration, ease, onCompleteTag)
     if (xy or "xy") == "xy" then
         window.windowTweenX(320, (duration or 1), (ease or "linear"), (onCompleteTag or "TweenToCenterX"))
@@ -68,11 +92,20 @@ window.tweenToCenter = function(xy, duration, ease, onCompleteTag)
     end
 end
 
+---Resizes the window
+---@param height number Target height
+---@param width number Target width
 window.resizeTo = function(height, width)
     window.setProperty("height", (height or 720))
     window.setProperty("width", (width or 1280))
 end
 
+---Resizes the window using tweens
+---@param height number Target height
+---@param width number Target width
+---@param duration number The time it takes to complete
+---@param ease string FlxEase
+---@param onCompleteTag string Tag for th `onTweenCompleted()` function
 window.tweenResizeTo = function(height, width, duration, ease, onCompleteTag)
     runHaxeCode([[
         var winResize:FlxTween;
@@ -83,14 +116,22 @@ window.tweenResizeTo = function(height, width, duration, ease, onCompleteTag)
     ]])
 end
 
+---Creates a alert window
+---@param title string Alert window title
+---@param msg string Alert window message
 window.alert = function(title, msg)
     runHaxeCode("Application.current.window.alert('"..tostring((msg or (scriptName..":GhostUtil: window.alert:2: Expected a value"))).."', '"..tostring((title or "GhostUtil Error")).."');")
 end
 
+---Changes the application title
+---@param title string Application title
 window.changeTitle = function(title)
     window.setProperty("title", (title or "Friday Night Funkin': Psych Engine"))
 end
 
+---Sets a certain property of the current window
+---@param var string Target property to set
+---@param val any New value
 window.setProperty = function(var, val)
     if val == nil or val == "" then
         d.error("window.setProperty:2: Unknown value or null")
@@ -126,6 +167,9 @@ window.setProperty = function(var, val)
     end
 end
 
+---Gets the specified property of the current window
+---@param var string Target property to return
+---@return any property Object Property
 window.getProperty = function(var)
     if var == nil or var == "" then
         d.error("window.getProperty:1: Attempted to get a null window's property")

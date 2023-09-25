@@ -1,5 +1,4 @@
 local color = {};
----@module GhostUtil
 ---@class Color
 
 local d = require "ghostutil.Debug"
@@ -19,19 +18,29 @@ color.YELLOW = '0xFFFFFF00'
 color.ORANGE = "0xFFFFA500"
 color.CYAN = "0xFF00FFFF"
 
+---Sets an object color to the target value
+---@param spr string Object
+---@param val string The target color. (RRGGBB)
 color.setSpriteColor = function(spr, val)
-    if not spr == nil then setProperty(spr..".color", (val or "FFFFFF")) else
+    if spr ~= nil then setProperty(spr..".color", (val or "FFFFFF")) else
         d.error("color.setSpriteColor:1: Expected a value")
     end
 end
 
+---Returns an object color
+---@param spr string
 color.getSpriteColor = function(spr)
-    if not spr == nil then return getProperty(spr..".color") else
+    if spr ~= nil then return getProperty(spr..".color") else
         d.error("color.getSpriteColor:1: Expected a value")
         -- Error format: (script_directory):GhostUtil: (function):(parameter): (error)
     end
 end
 
+---Converts RGB to the Hex format (RRGGBB).
+---@param r integer
+---@param g integer
+---@param b integer
+---@return string
 color.rgbToHex = function(r,g,b)
     if r == nil or g == nil or b == nil then
         d.warning("color.rgbToHex: Invalid value. nil -> 255")
