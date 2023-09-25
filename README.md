@@ -38,7 +38,7 @@ function onBeatHit()
 end
 ```
 
-(`local modc = require "ghostutil.Modcharts"` is not needed if you already have the requires" 
+(`local modc = require "ghostutil.Modcharts"` is not needed if you already have the `require()`'s)
 
 MORE EXAMPLES ON `Ghost-s-Utilities/examples`!!
 **CHECK OUT THE [WIKI](https://github.com/GhostglowDev/Ghost-s-Utilities/wiki) FOR MORE FUNCTIONS.**
