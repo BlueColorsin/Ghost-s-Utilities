@@ -1,5 +1,5 @@
 # Ghost' s Utilities
-Friday Night Funkin': Psych Engine Utility by Ghost to make programming easier with more variables and unique functions
+a utility for Psych Engine that makes programming simpler.
 
 ## You're struggling to code in Psych Engine LUA?
 ### Well, use GhostUtil!
