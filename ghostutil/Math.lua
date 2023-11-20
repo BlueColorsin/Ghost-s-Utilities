@@ -87,7 +87,7 @@ mt.roundDecimal = mt.round
 
 ---Limits the amount of decimals
 ---@param x number Number
----@param d number Target amount of decimals (Optional, default = 2)
+---@param dc number Target amount of decimals (Optional, default = 2)
 ---@return number
 mt.round = function(x, dc)
     if x ~= nil then 
