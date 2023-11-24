@@ -20,6 +20,18 @@ modchart.downscroll = function(note, toggle, duration, ease, withUi, modchartTag
     noteTweenY((((toggle and "ModchartDownscroll" or "ModchartUpscroll")..note)), note, notes.y[(note + 1)] + (toggle and (withUi and 510 or 470) or 0), (duration or 1), ease)
     setPropertyFromGroup(strum, ((strum == "opponentStrums") and note or (note - 4)), "downScroll", (toggle and (not downscroll) or downscroll))
 
+    for i = 0, getProperty("notes.length") do
+        if getPropertyFromGroup("notes", i, "isSustainNote") and (getPropertyFromGroup("notes", i, "noteData") == ((strum == "opponentStrums") and note or (note - 4))) then
+            setPropertyFromGroup("notes", i, "flipY", (toggle and (not downscroll) or (downscroll)))
+        end
+    end
+
+    for i = 0, getProperty("unspawnNotes.length")-1 do
+        if getPropertyFromGroup("unspawnNotes", i, "isSustainNote") and (getPropertyFromGroup("unspawnNotes", i, "noteData") == ((strum == "opponentStrums") and note or (note - 4))) then
+            setPropertyFromGroup("unspawnNotes", i, "flipY", (toggle and (not downscroll) or (downscroll)))
+        end
+    end
+
     if withUi then
         doTweenY(("ModchartDownscrollUi_TimeTxt"), "timeTxt", (toggle and (downscroll and 19 or 676) or (downscroll and 676 or 19)), (duration or 1), ease)
         doTweenY(("ModchartDownscrollUi_TimeBar"), "timeBar", (toggle and (downscroll and 31.25 or 688.25) or (downscroll and 688.25 or 31.25)), (duration or 1), ease)
@@ -31,7 +43,7 @@ modchart.downscroll = function(note, toggle, duration, ease, withUi, modchartTag
         doTweenY(("ModchartDownscrollUi_IconP1"), "iconP1", (toggle and (downscroll and 569.8 or 8.2) or (downscroll and 8.2 or 569.8)), (duration or 1), ease)
         doTweenY(("ModchartDownscrollUi_IconP2"), "iconP2", (toggle and (downscroll and 569.8 or 8.2) or (downscroll and 8.2 or 569.8)), (duration or 1), ease)
     end
-    runHaxeCode("game.callOnLuas('onTweenCompleted', ['"..(modchartTag or ("ModchartDownscroll"..note)).."']);")
+    runHaxeCode("game.callOnLuas('onModchart', ['"..(modchartTag or ("ModchartDownscroll"..note)).."']);")
 end
 
 ---Transitions to middlescroll
@@ -50,7 +62,7 @@ modchart.middlescroll = function(toggle, opponentVisible, duration, ease, modcha
         doTween(((toggle and "ModchartMiddlescrollDad" or "ModchartUnMiddlescrollDad"))..i, i, (toggle and (opponentVisible and midPos.dad[(i+1)] or 0) or (opponentVisible and notes.x[(i+1)] or 1)), (duration or 1), ease)
         noteTweenX(((toggle and "ModchartMiddlescrollBf" or "ModchartUnMiddlescrollBf"))..i, (i+4), (toggle and midPos.bf[(i+1)] or notes.x[(i+5)]), (duration or 1), ease)
     end
-    runHaxeCode("game.callOnLuas('onTweenCompleted', ['"..(modchartTag or ("ModchartMiddlescroll")).."']);")
+    runHaxeCode("game.callOnLuas('onModchart', ['"..(modchartTag or ("ModchartMiddlescroll")).."']);")
 end
 
 ---Swaps the opponent's strums with the player's
@@ -65,7 +77,7 @@ modchart.swapStrums = function(swap, duration, ease, modchartTag)
     for i = 0,7 do
         noteTweenX(((swap and ("ModchartSwapStrums") or ("ModchartUnSwapStrums")))..i, i, ((i <= 3) and (swap and notes.x[i+5] or notes.x[i+1]) or (swap and notes.x[(i+1)-4] or notes.x[(i+5)-4])), (duration or 1), ease)
     end
-    runHaxeCode("game.callOnLuas('onTweenCompleted', ['"..(modchartTag or ("ModchartSwapStrums")).."']);")
+    runHaxeCode("game.callOnLuas('onModchart', ['"..(modchartTag or ("ModchartSwapStrums")).."']);")
 end
 
 return modchart;

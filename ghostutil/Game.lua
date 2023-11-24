@@ -37,4 +37,48 @@ game.traceLuaObject = function(objType, obj)
     return exists
 end
 
+---Sets the sprite's origin to its center - useful after adjusting `scale` to make sure rotations work as expected.
+---@param obj string Object
+game.centerOrigin = function(obj)
+    setOrigin(getProperty(obj..".frameWidth") * 0.5, getProperty(obj..".frameHeight") * 0.5)
+end
+
+---Sets the sprite's origin position
+---@param obj string Object
+---@param x number New X origin position
+---@param y number New Y origin position
+game.setOrigin = function(obj, x, y)
+    setProperty(obj..".origin.x", x); setProperty(obj..".origin.y", y)
+end
+
+---Returns the values of the origin position of the target object using a table
+---@param obj string Object
+---@return table
+game.getOrigin = function(obj)
+    local table = {
+        x = getProperty(obj..".origin.x"),
+        y = getProperty(obj..".origin.y")
+    }
+    return table;
+end
+
+---Sets the sprite's position
+---@param obj string Object
+---@param x number New X position
+---@param y number New Y position
+game.setPosition = function(obj, x, y)
+    setProperty(obj..".x", x); setProperty(obj..".y", y)
+end
+
+---Returns the values of the position of the target object using a table
+---@param obj string Object
+---@return table
+game.getPosition = function(obj)
+    local table = {
+        x = getProperty(obj..".x"),
+        y = getProperty(obj..".y")
+    }
+    return table;
+end
+
 return game;

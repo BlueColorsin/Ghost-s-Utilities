@@ -1,6 +1,8 @@
 local util = {};
 ---@class Utilities
 
+local d = require "ghostutil.Debug"
+
 ---Converts any value to a boolean
 ---@param v any Value
 ---@return boolean
@@ -11,7 +13,7 @@ util.toBool = function(v)
 
     elseif tostring(v) == "false" then return false
     elseif tostring(v) == "true" then return true
-    else return false
+    else d.error("utilities.toBool:1: Failed converting value to a boolean")
     end
 end
 
