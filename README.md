@@ -10,7 +10,7 @@ GhostUtil provides a lot of unique variables and functions for you to mess aroun
 ### * GhostUtil is only tested on 0.6.3
 It's simple. Put the "ghostutil" folder onto the main folder (where the .exe is located)
 
-Now let's make a new script. Add these:
+Now let's make a new script. Add these (or only add some that you actually need):
 ```lua
 local colr = require "ghostutil.Color"
 local debg = require "ghostutil.Debug"
