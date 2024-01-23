@@ -1,6 +1,6 @@
 # Ghost's Utilities
 
-Ghost's Utilities or more known as GhostUtil is a module/addon to Psych Engine to make programmer more easier and tidier.
+Ghost's Utilities or more known as GhostUtil is a module/addon to Psych Engine to make programming more easier and tidier.
 GhostUtil provides a lot of unique variables and functions for you to mess around!
 
 ## The Basics
@@ -28,6 +28,9 @@ function onCreate()
     }, 2, "expoOut")
 end
 ```
+This does a tweens boyfriend's scale to 2x it's default size. It also tweens boyfriend's position!
+
+`math.boundTo` was to limit the coordinates to reach a certain number
 
 ### Info
 **CHECK OUT THE [WIKI](https://github.com/GhostglowDev/Ghost-s-Utilities/wiki) FOR MORE FUNCTIONS.**
