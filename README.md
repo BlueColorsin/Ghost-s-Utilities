@@ -1,48 +1,43 @@
-# Ghost' s Utilities
-a utility for Psych Engine that makes programming simpler.
+# Ghost's Utilities
 
-## You're struggling to code in Psych Engine LUA?
-### Well, use GhostUtil!
-
+Ghost's Utilities or more known as GhostUtil is a module/addon to Psych Engine to make programmer more easier and tidier.
 GhostUtil provides a lot of unique variables and functions for you to mess around!
 
-## How do I use GhostUtil?
-### * GhostUtil is only tested on 0.6.3
-It's simple. Put the "ghostutil" folder onto the main folder (where the .exe is located)
+## The Basics
 
-Now let's make a new script. Add these (or only add some that you actually need):
+### How do I use GhostUtil?
+* Add the "ghostutil" folder to the main Psych Engine folder. (where the `.exe` is)
+![image](https://github.com/GhostglowDev/Ghost-s-Utilities/assets/108509756/076a2654-46fd-4231-b4ba-2512f4ee880c)
+
+
+* To use GhostUtil, you must import it's modules; use the `require` function on a variable.
+Since we're using base lua functions, this is not needed to be in a function.                       
+![image](https://github.com/GhostglowDev/Ghost-s-Utilities/assets/108509756/aa15d81d-d20b-4685-b788-ed479765bfff)
+
+* Let's try messing with the script!
 ```lua
-local colr = require "ghostutil.Color"
-local debg = require "ghostutil.Debug"
+local math = require "ghostutil.Math"
 local game = require "ghostutil.Game"
-local math = require "ghostutil.Math" -- Naming the variable "math" is now possible in GhostUtil >1.0.0
-local modc = require "ghostutil.Modcharts"
-local util = require "ghostutil.Util"
-local wind = require "ghostutil.Window"
-```
-These functions are responsible for loading up the modules from GhostUtil
 
-## Let's try messing with the script.
-From `up-n-down.lua` from `examples/modchart`;
-```lua
-local modc = require "ghostutil.Modcharts"
-local bool = false
-
-function onBeatHit()
-    if curBeat % 8 == 0 then
-        bool = not bool
-        for i = 0,7 do
-            modc.downscroll(i, bool, 2, "expoOut", true)
-        end
-    end
+function onCreate()
+    luaDebugMode = true
+    game.doTweenScale("tweenScale", "boyfriend", {2, 2.1}, "expoOut")
+    game.doTweenPosition({"boyfriendcool", "boyfriendswag"}, "boyfriend", {
+        game.getPosition("boyfriend").x - 100,
+        math.boundTo(game.getPosition("dad").y + 100, -100, 200)
+    }, 2, "expoOut")
 end
 ```
 
-(`local modc = require "ghostutil.Modcharts"` is not needed if you already have the `require()`'s)
-
-MORE EXAMPLES ON `Ghost-s-Utilities/examples`!!
+### Info
 **CHECK OUT THE [WIKI](https://github.com/GhostglowDev/Ghost-s-Utilities/wiki) FOR MORE FUNCTIONS.**
 
-## Note
+### Older Versions
+
+* below 2.0.0a
 When using the `Window` class, add `window.init()` before doing anything with the Window functions/variables
 "window" in `window.init()` depends on what you set the variable to. If it's `wind` then `wind.init()`, etc.
+
+
+* below 1.0.0
+Naming the variable `math` will break the script.
