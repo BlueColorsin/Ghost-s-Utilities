@@ -36,11 +36,20 @@ This does a tweens boyfriend's scale to 2x it's default size. It also tweens boy
 **CHECK OUT THE [WIKI](https://github.com/GhostglowDev/Ghost-s-Utilities/wiki) FOR MORE FUNCTIONS.**
 
 ### Older Versions
+**Psych Engine**:
 
-* below 2.0.0a
+* below 0.6.3:
+Mostly because most of the lua functions that GhostUtil use doesn't exist.
+
+ * 0.7.1h:
+It breaks GhostUtil (mostly because of `runHaxeCode`); so use the latest version or 0.7.3 instead.
+
+**GhostUtil**:
+
+* below 2.0.0a:
 When using the `Window` class, add `window.init()` before doing anything with the Window functions/variables
 "window" in `window.init()` depends on what you set the variable to. If it's `wind` then `wind.init()`, etc.
 
 
-* below 1.0.0
+* below 1.0.0:
 Naming the variable `math` will break the script.
