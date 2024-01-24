@@ -16,7 +16,7 @@ Since we're using base lua functions, this is not needed to be in a function.
 
 * Let's try messing with the script!
 ```lua
-local math = require "ghostutil.Math"
+local math = require "ghostutil.lua-addons.math"
 local game = require "ghostutil.Game"
 
 function onCreate()
