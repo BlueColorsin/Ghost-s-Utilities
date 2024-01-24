@@ -32,7 +32,7 @@ This does a tweens boyfriend's scale to 2x it's default size. It also tweens boy
 
 `math.boundTo` was to limit the coordinates to reach a certain number
 
-### Info
+### For more advanced informations:
 **CHECK OUT THE [WIKI](https://github.com/GhostglowDev/Ghost-s-Utilities/wiki) FOR MORE FUNCTIONS.**
 
 ### Older Versions
