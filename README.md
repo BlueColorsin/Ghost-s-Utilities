@@ -25,6 +25,8 @@ GhostUtil provides a lot of unique variables and functions for you to mess aroun
 
 and then, drag-n-drop the `callbackhandler.lua` file to `mods/scripts`
 
+![image](https://github.com/GhostglowDev/Ghost-s-Utilities/assets/108509756/cf993438-85c4-447c-9cb0-0255ebf7a765)
+
 * To use GhostUtil, you must import it's modules; use the `require` function on a variable.
 Since we're using base lua functions, this is not needed to be in a function.
                    
