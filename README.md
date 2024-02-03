@@ -40,13 +40,13 @@ function onCreate()
     game.doTweenScale("tweenScale", "boyfriend", {2, 2.1}, "expoOut")
     game.doTweenPosition({"boyfriendcool", "boyfriendswag"}, "boyfriend", {
         game.getPosition("boyfriend").x - 100,
-        math.boundTo(game.getPosition("dad").y + 100, -100, 200)
+        math.boundto(game.getPosition("dad").y + 100, -100, 200)
     }, 2, "expoOut")
 end
 ```
 This does a tweens boyfriend's scale to 2x it's default size. It also tweens boyfriend's position!
 
-`math.boundTo` was to limit the coordinates to reach a certain number
+`math.boundto` was to limit the coordinates to reach a certain number
 
 ### For more advanced informations:
 **CHECK OUT THE [WIKI](https://github.com/GhostglowDev/Ghost-s-Utilities/wiki) FOR MORE FUNCTIONS.**
