@@ -1,17 +1,11 @@
-local window = {};
+---@meta Window
+---@author GhostglowDev
+
+---Window manipulation related
 ---@class Window
+local window = {}
 
 local d = require "ghostutil.Debug"
-<<<<<<< Updated upstream
-
----Simply loads the library "Application" from `lime.app`
-window.init = function() 
-    addHaxeLibrary("Application", "lime.app");
-end
-
-window.defaultHeight = 720;
-window.defaultWidth = 1280;
-=======
 local u = require "ghostutil.Util"
 
 local activeTweens = {}
@@ -81,13 +75,11 @@ function window._destroy()
         end
     end
 end
->>>>>>> Stashed changes
 
 ---Sets the window position to the target value
----@param x number
----@param y number
-window.setPosition = function(x, y)
-    window.setProperty("x", x); window.setProperty("y", y);
+---@param pos table<number>|number The new positions. {x, y}. If both values are the same then type in the value in the `number` type
+window.setPosition = function(pos)
+    window.setProperty("x", (u.isTable(pos) and pos[1] or pos)) window.setProperty("y", (u.isTable(pos) and pos[2] or pos))
 end
 
 ---Closes the window
@@ -96,20 +88,8 @@ window.close = function()
 end
 
 ---Tweens the window X position to the target value
+---@param tag string For pausing/resuming, cancelling and for `onTweenCompleted`
 ---@param value number Target X position to tween to
-<<<<<<< Updated upstream
----@param duration number The time it takes to complete
----@param ease string FlxEase
----@param onCompleteTag string Tag for the `onTweenComplete()` function
-window.windowTweenX = function(value, duration, ease, onCompleteTag)
-    if value == nil then d.error("window.windowTweenX:1: Value is null/nil") else
-        runHaxeCode([[
-            var winX:FlxTween;
-            if (winX != null) winX.cancel();
-            winX = FlxTween.tween(Application.current.window, {x: ]]..tostring(value)..[[}, ]]..(tostring(duration) or "1")..[[, {ease: FlxEase.]]..(ease or "linear")..[[, onComplete:
-                function(){ game.callOnLuas("onTweenCompleted", ["]]..(onCompleteTag or "WindowTweenX")..[["]); }
-            });
-=======
 ---@param duration? number The time it takes to complete
 ---@param ease? string FlxEase
 window.windowTweenX = function(tag, value, duration, ease)
@@ -127,22 +107,15 @@ window.windowTweenX = function(tag, value, duration, ease)
                     }
                 })
             );
->>>>>>> Stashed changes
         ]])
     end
+
+    table.insert(activeTweens, {tag, false})
 end
 
 ---Tweens the window Y position to the target value
+---@param tag string For pausing/resuming, cancelling and for `onTweenCompleted`
 ---@param value number Target Y position to tween to
-<<<<<<< Updated upstream
----@param duration number The time it takes to complete
----@param ease string FlxEase
----@param onCompleteTag string Tag for the `onTweenComplete()` function
-window.windowTweenY = function(value, duration, ease, onCompleteTag)
-    if value == nil then
-        d.error("window.windowTweenY:1: Value is null/nil")
-        -- Error format: (script_directory):GhostUtil: (function):(parameter): (error)
-=======
 ---@param duration? number The time it takes to complete
 ---@param ease? string FlxEase
 window.windowTweenY = function(tag, value, duration, ease)
@@ -289,73 +262,37 @@ window.screenCenter = function(xy)
         window.setProperty("x", (window.desktopDimensions.width - window.getProperty("width")) / 2)
     elseif xy == "y" then
         window.setProperty("y", (window.desktopDimensions.height - window.getProperty("height")) / 2)
->>>>>>> Stashed changes
     else
-        runHaxeCode([[
-            var winY:FlxTween;
-            if (winY != null) winY.cancel();
-            winY = FlxTween.tween(Application.current.window, {y: ]]..tostring(value)..[[}, ]]..(tostring(duration) or "1")..[[, {ease: FlxEase.]]..(ease or "linear")..[[, onComplete:
-                function(){ game.callOnLuas("onTweenCompleted", ["]]..(onCompleteTag or "WindowTweenY")..[["]); }
-            });
-        ]])
+        d.error("window.screenCenter:1: Unknown value '"..xy.."'")
     end
 end
 
----Disclaimer: Only works when the window is in fullscreen / default size
----@param xy string x, y or xy
-window.screenCenter = function(xy)
-    if (xy or "xy") == "xy" then
-        window.setProperty("x", 320)
-        window.setProperty("y", 180)
-    elseif (xy or "xy") == "x" then
-        window.setProperty("x", 320)
-    elseif (xy or "xy") == "y" then
-        window.setProperty("y", 180)
-    else
-        d.error("window.screenCenter:1: Unknown value or null")
-        -- Error format: (script_directory):GhostUtil: (function):(parameter): (error)
-    end
-end
-
----Disclaimer: Only works when the window is in fullscreen / default size
----@param xy string x, y or xy
----@param duration number The time it takes to complete
----@param ease string FlxEase
----@param onCompleteTag string Tag for the `onTweenComplete()` function
-window.tweenToCenter = function(xy, duration, ease, onCompleteTag)
-    if (xy or "xy") == "xy" then
-        window.windowTweenX(320, (duration or 1), (ease or "linear"), (onCompleteTag or "TweenToCenterX"))
-        window.windowTweenY(180, (duration or 1), (ease or "linear"), (onCompleteTag or "TweenToCenterY"))
-    elseif (xy or "xy") == "x" then
-        window.windowTweenX(320, (duration or 1), (ease or "linear"), (onCompleteTag or "TweenToCenterX"))
-    elseif (xy or "xy") == "y" then
-        window.windowTweenY(180, (duration or 1), (ease or "linear"), (onCompleteTag or "TweenToCenterY"))
+---Tweens the window to the center of the desktop
+---@param tag string For pausing/resuming, cancelling and for `onTweenCompleted`
+---@param xy? string x, y or xy (Default: "xy")
+---@param duration? number The time it takes to complete
+---@param ease? string FlxEase
+window.tweenToCenter = function(tag, xy, duration, ease)
+    xy, onCompleteTag = xy or "xy", onCompleteTag or "WindowCenter"
+    if xy == "xy" then
+        window.windowTweenPosition(tag, {
+            (window.desktopDimensions.width - window.getProperty("width")) / 2, 
+            (window.desktopDimensions.height - window.getProperty("height")) / 2
+        }, duration, ease)
+    elseif xy == "x" then
+        window.windowTweenX(tag, (window.desktopDimensions.width - window.getProperty("width")) / 2, duration, ease)
+    elseif xy == "y" then
+        window.windowTweenY(tag, (window.desktopDimensions.height - window.getProperty("height")) / 2, duration, ease)
     end
 end
 
 ---Resizes the window
----@param height number Target height
----@param width number Target width
-window.resizeTo = function(height, width)
-    window.setProperty("height", (height or 720))
-    window.setProperty("width", (width or 1280))
+---@param values table<number>|number The values. {width, height}. If both values are the same then type in the value in `number` type
+window.resizeTo = function(values)
+    window.setProperty("width", ((u.isTable(values) and values[1] or values) or window.defaultDimensions.width)) window.setProperty("height", ((u.isTable(values) and values[1] or values) or window.defaultDimensions.height))
 end
 
 ---Resizes the window using tweens
-<<<<<<< Updated upstream
----@param height number Target height
----@param width number Target width
----@param duration number The time it takes to complete
----@param ease string FlxEase
----@param onCompleteTag string Tag for th `onTweenCompleted()` function
-window.tweenResizeTo = function(height, width, duration, ease, onCompleteTag)
-    runHaxeCode([[
-        var winResize:FlxTween;
-        if (winResize != null) winResize.cencel();
-        winResize = FlxTween.tween(Application.current.window, {height: ]]..tostring((height or 720))..[[, width: ]]..tostring((width or 1280))..[[}, ]]..(tostring(duration) or "1")..[[, {ease: FlxEase.]]..(ease or "linear")..[[, onComplete:
-            function(){ game.callOnLuas("onTweenCompleted", ["]]..(onCompleteTag or "TweenResizeTo")..[["]); }
-        });
-=======
 ---@param tag string For pausing/resuming, cancelling and for `onTweenCompleted`.
 ---@param values table<number>|number The values. {width, height}. If both values are the same then type in the value in `number` type
 ---@param duration? number The time it takes to complete
@@ -386,7 +323,6 @@ end
 window.setIcon = function(img)
     runHaxeCode([[
         Application.current.window.setIcon(Image.fromFile(Paths.image(']]..img..[[')));
->>>>>>> Stashed changes
     ]])
 end
 
@@ -398,13 +334,11 @@ window.alert = function(title, msg)
 end
 
 ---Changes the application title
----@param title string Application title
+---@param title? string Application title
 window.changeTitle = function(title)
     window.setProperty("title", (title or "Friday Night Funkin': Psych Engine"))
 end
 
-<<<<<<< Updated upstream
-=======
 ---Focuses the current window
 window.focus = function()
     runHaxeCode("Application.current.window.focus();")
@@ -441,42 +375,16 @@ window.createWindow = function(winName, attributes, closeOnDestroy)
     table.insert(extraWindows, {winName, (closeOnDestroy)})
 end
 
->>>>>>> Stashed changes
 ---Sets a certain property of the current window
 ---@param var string Target property to set
 ---@param val any New value
 window.setProperty = function(var, val)
-    if val == nil or val == "" then
-        d.error("window.setProperty:2: Unknown value or null")
-        -- Error format: (script_directory):GhostUtil: (function):(parameter): (error)
+    if val == nil or (val == "" and not var == "title") then
+        d.error("window.setProperty:2: "..(val == nil and "Value is nil" or "Unknown value: '"..val.."'"))
     else
-        if var == "borderless" then
-            setPropertyFromClass("lime.app.Application", "current.window.borderless", val)
-        elseif var == "height" then
-            setPropertyFromClass("lime.app.Application", "current.window.height", val)
-        elseif var == "width" then
-            setPropertyFromClass("lime.app.Application", "current.window.width", val)
-        elseif var == "x" then
-            setPropertyFromClass("lime.app.Application", "current.window.x", val)
-        elseif var == "y" then
-            setPropertyFromClass("lime.app.Application", "current.window.y", val)
-        elseif var == "fullscreen" then
-            setPropertyFromClass("lime.app.Application", "current.window.fullscreen", val)
-        elseif var == "title" then
-            setPropertyFromClass("lime.app.Application", "current.window.title", val)
-        elseif var == "resizable" or var == "canResize" then
-            setPropertyFromClass("lime.app.Application", "current.window.resizable", val)
-        --[[elseif var == "iconImage" then
-            runHaxeCode("Application.current.window.setIcon("..tostring(val)..");")]]
-        else
-            if var == nil then
-                d.error("window.setProperty:1: Attempt to set a window's null property")
-                -- Error format: (script_directory):GhostUtil: (function):(parameter): (error)
-            else
-                d.error("window.setProperty:1: Attempt to set an unknown window property")
-                -- Error format: (script_directory):GhostUtil: (function):(parameter): (error)
-            end
-        end
+        local vars = {"borderless", "height", "width", "x", "y", "fullscreen", "title", "resizable"}
+        for i = 1, #vars do if var == vars[i] then setPropertyFromClass("lime.app.Application", "current.window."..var, val); return end end
+        d.error("window.setProperty:1: Attempt to set the application's "..(var == nil and "nil" or "unknown").." value")
     end
 end
 
@@ -484,28 +392,9 @@ end
 ---@param var string Target property to return
 ---@return any property Object Property
 window.getProperty = function(var)
-    if var == nil or var == "" then
-        d.error("window.getProperty:1: Attempted to get a null window's property")
-        -- Error format: (script_directory):GhostUtil: (function):(parameter): (error)
-    else
-        if var == "borderless" then
-            return getPropertyFromClass("lime.app.Application", "current.window.borderless")
-        elseif var == "height" then
-            return getPropertyFromClass("lime.app.Application", "current.window.height")
-        elseif var == "width" then
-            return getPropertyFromClass("lime.app.Application", "current.window.width")
-        elseif var == "x" then
-            return getPropertyFromClass("lime.app.Application", "current.window.x")
-        elseif var == "y" then
-            return getPropertyFromClass("lime.app.Application", "current.window.y")
-        elseif var == "fullscreen" then
-            return getPropertyFromClass("lime.app.Application", "current.window.fullscreen")
-        elseif var == "title" then
-            return getPropertyFromClass("lime.app.Application", "current.window.title")
-        elseif var == "resizable" then
-            return getPropertyFromClass("lime.app.Application", "current.window.resizable")
-        end
-    end
+    local vars = {"borderless", "height", "width", "x", "y", "fullscreen", "title", "resizable"}
+    for i = 1, #vars do if var == vars[i] then return getPropertyFromClass("lime.app.Application", "current.window."..var); end end
+    d.error("window.getProperty:1: Attempt to get an "..(var == nil and "nil" or "unknown").." window property")
 end
 
-return window;
+return window

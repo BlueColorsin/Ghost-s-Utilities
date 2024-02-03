@@ -1,10 +1,12 @@
-local util = {};
----@class Utilities
+---@meta Util
+---@author GhostglowDev
 
+---@class Utilities
+local util = {}
+
+local c = require "ghostutil.Color"
 local d = require "ghostutil.Debug"
 
-<<<<<<< Updated upstream
-=======
 ---@author GhostglowDev, galactic_2005
 ---@param ease string
 ---@return string FlxEase
@@ -61,10 +63,9 @@ util.doTweenNumber = function(tag, from, to, duration, ease)
     end
 end
 
->>>>>>> Stashed changes
 ---Converts any value to a boolean
 ---@param v any Value
----@return boolean
+---@return boolean|any
 util.toBool = function(v)
     -- Conversion
     if tostring(v) == "0" then return false
@@ -74,14 +75,10 @@ util.toBool = function(v)
     elseif tostring(v) == "true" then return true
     else d.error("utilities.toBool:1: Failed converting value to a boolean")
     end
+
+    return v
 end
 
-<<<<<<< Updated upstream
-util.isNaN = util.Nil
-util.isNull = util.Nil
-
----Checks if a value is nil / null / NaN
-=======
 ---Runs a lua code from a file (any file format)
 ---@param file string The file to fetch (must include extension)
 util.runLuaFromFile = function(file)
@@ -107,17 +104,12 @@ util.isOfType = function(self, t)
 end
 
 ---Checks if a value is nil
->>>>>>> Stashed changes
 ---@param v any
 ---@return boolean
 util.isNil = function(self)
     return type(self) == "nil"
 end
 
-<<<<<<< Updated upstream
----Checks if a value if a boolean type
----@param v any
-=======
 ---Checks if a value is NaN
 util.isNaN = util.isNil
 ---Checks if a value is null
@@ -125,26 +117,18 @@ util.isNull = util.isNil
 
 ---Checks if a value is a boolean
 ---@param self any
->>>>>>> Stashed changes
 ---@return boolean
 util.isBool = function(self)
     return type(self) == "boolean"
 end
 
-<<<<<<< Updated upstream
----Checks if a value if a number type
----@param v any
-=======
 ---Checks if a value is a number
 ---@param self any
->>>>>>> Stashed changes
 ---@return boolean
 util.isNumber = function(self)
     return type(self) == "number"
 end
 
-<<<<<<< Updated upstream
-=======
 ---Checks if a value is a string
 ---@param self any
 ---@return boolean
@@ -159,14 +143,14 @@ util.isTable = function(self)
     return type(self) == "table"
 end
 
->>>>>>> Stashed changes
 ---Basically, `debugPrint()` with Color
----@param color string FlxColor
----@param text string
-util.debugPrint = function(color, text)
-    if stringStartsWith(color, "0xFF") then else color = "0xFF"..color end
-    for i in text do
-        runHaxeCode("game.addTextToDebug('"..tostring(text).."', "..(color or "0xFFFFFFFF")..");")
+---@param texts table<string> The texts in a table, in a string
+---@param color? string FlxColor
+util.debugPrint = function(texts, color)
+    color = color or "0xFFFFFFFF"
+    color = (stringStartsWith(color, "0x") and color or "0xFF"..color)
+    for i = 1, #texts do
+        runHaxeCode("game.addTextToDebug('"..tostring(texts[i]).."', "..(color or "0xFFFFFFFF")..");")
     end
 end
 
@@ -174,44 +158,6 @@ end
 ---@param tag string Text tag
 ---@param txt string Text's string
 ---@param fieldWidth number Field width of the text
-<<<<<<< Updated upstream
----@param x number X position
----@param y number Y position
----@param scale number Scale of text
----@param instantAdd boolean Do you want to add it without needing to use `addLuaText()` after?
----@param alignment string Left, center, right
----@param color string FlxColor
----@param isCentered boolean Do you want it to be centered
----@param centerType string xy, x, y
-util.quickText = function(tag, txt, fieldWidth, x, y, scale, instantAdd, alignment, color, isCentered, centerType)
-    makeLuaText(tag, txt, fieldWidth, x, y)
-    if scale == "" or scale == nil then
-        setTextSize(tag, 24)
-    else
-        setTextSize(tag, scale)
-    end
-    if alignment == "" or alignment == nil or not alignment == "left" or not alignment == "center" or not alignment == "right" then
-        setTextAlignment(tag, "left")
-    else
-        setTextAlignment(tag, alignment)
-    end
-    if not color == nil or not color == "" then
-        setTextColor(tag, color)
-    end
-    if instantAdd then
-        addLuaText(tag)
-    end
-    if isCentered then
-        if centerType == "center" then
-            screenCenter(tag, "xy")
-        else
-            screenCenter(tag, centerType)
-        end
-    end
-end
-
-return util;
-=======
 ---@param pos table<number> Positions in a table. Example: {100, 300}
 ---@param instantAdd? boolean Do you want to add it without needing to use `addLuaText()` after?
 ---@param size? number Scale of the text. Example: {2, 2.45}
@@ -298,4 +244,3 @@ util.quickGraphic = function(tag, pos, dimensions, color, instantAdd, inFrontOfC
 end
 
 return util
->>>>>>> Stashed changes

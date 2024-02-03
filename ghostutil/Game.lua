@@ -1,11 +1,12 @@
-local game = {};
----@class Game
+---@meta Game
+---@author GhostglowDev
 
-local c = require "ghostutil.Color";
+---An addon to FunkinLua
+---@class Game
+local game = {}
+
+local c = require "ghostutil.Color"
 local d = require "ghostutil.Debug"
-<<<<<<< Updated upstream
-local m = require "ghostutil.Math"
-=======
 local o = require "ghostutil.OutdateHandler"
 local m = require "ghostutil.lua-addons.math"
 
@@ -65,7 +66,6 @@ game.fixShaderCoord = function()
         return;
     ]])
 end
->>>>>>> Stashed changes
 
 ---Returns the current health color of the target in hex
 ---@param char string Dad or Boyfriend
@@ -74,11 +74,9 @@ game.getHealthColor = function(char)
     char = char:lower()
     if char == "bf" then char = "boyfriend" end
     if (char ~= "boyfriend" and char ~= "dad") then 
-        d.error("game.getHealthColor:1: Unknown value: '"..char.."'")
+        d.error("game.getHealthColor:1: Unknown character: '"..char.."'")
+        return ""
     else
-<<<<<<< Updated upstream
-        return "0xFF"..c.rgbToHex(getProperty(char..".healthColorArray[0]"), getProperty(char..".healthColorArray[1]"), getProperty(char..".healthColorArray[2]"));
-=======
         return c.rgbToHex(getProperty(char..".healthColorArray[0]"), getProperty(char..".healthColorArray[1]"), getProperty(char..".healthColorArray[2]"))
     end
 end
@@ -91,25 +89,12 @@ game.setHealthBarColors = function(left, right)
         if version >= "0.7.0" then setHealthBarColors(left, right) else
             runHaxeCode("game.healthBar.createFilledBar("..getColorFromHex(left)..", "..getColorFromHex(right)..")")
         end
->>>>>>> Stashed changes
     end
 end
 
 ---Checks if a certain LUA object exists
 ---@param obj string LUA object
 ---@return boolean
-<<<<<<< Updated upstream
-game.traceLuaObject = function(objType, obj)
-    local exists = false
-    if objType:lower() == "sound" then
-        exists = luaSoundExists(obj)
-    elseif objType:lower() == "sprite" then
-        exists = luaSpriteExists(obj)
-    elseif objType:lower() == "text" or objType:lower() == "txt" then
-        exists = luaTextExists(obj)
-    else
-        d.error("game.traceLuaObject:1: Unknown value: '"..objType.."'")
-=======
 game.luaInstanceExists = function(obj)
     local exists = false
     for i = 1, 3 do
@@ -118,7 +103,6 @@ game.luaInstanceExists = function(obj)
             exists = true
             break
         end
->>>>>>> Stashed changes
     end
 
     return exists
@@ -157,51 +141,30 @@ end
 
 ---Sets the sprite's origin position
 ---@param obj string Object
----@param x number New X origin position
----@param y number New Y origin position
-game.setOrigin = function(obj, x, y)
-    setProperty(obj..".origin.x", x); setProperty(obj..".origin.y", y)
+---@param newOri table New Origin
+game.setOrigin = function(obj, newOri)
+    setProperty(obj..".origin.x", newOri[1]) setProperty(obj..".origin.y", newOri[2])
 end
 
 ---Returns the values of the origin position of the target object using a table
 ---@param obj string Object
 ---@return table
 game.getOrigin = function(obj)
-    local table = {
+    return {
         x = getProperty(obj..".origin.x"),
         y = getProperty(obj..".origin.y")
     }
-    return table;
 end
 
 ---Sets the sprite's position
 ---@param obj string Object
-<<<<<<< Updated upstream
----@param x number New X position
----@param y number New Y position
-game.setPosition = function(obj, x, y)
-    setProperty(obj..".x", x); setProperty(obj..".y", y)
-=======
 ---@param newPos table<number> New Position
 game.setPosition = function(obj, newPos)
     setProperty(obj..".x", newPos[1]) setProperty(obj..".y", newPos[2])
->>>>>>> Stashed changes
 end
 
 ---Returns the values of the position of the target object using a table
 ---@param obj string Object
-<<<<<<< Updated upstream
----@return table
-game.getPosition = function(obj)
-    local table = {
-        x = getProperty(obj..".x"),
-        y = getProperty(obj..".y")
-    }
-    return table;
-end
-
-return game;
-=======
 ---@return table<number>
 game.getPosition = function(obj)
     return {
@@ -237,7 +200,7 @@ game.callMethod = function(funcToRun, args)
 end
 
 ---Calls a function from a `className` class
----@param class string The class
+---@param className string The class
 ---@param funcToRun string The function to call
 ---@param args table<any> The arguments; can be as many as the function needs
 ---@author GhostglowDev, Laztrix, galactic_2005
@@ -414,4 +377,3 @@ game.startTween = function(tag, var, values, duration, options)
 end
 
 return game
->>>>>>> Stashed changes

@@ -1,10 +1,9 @@
-local debug = {};
----@class Debug
+---@meta Debug
+---@author GhostglowDev
 
-<<<<<<< Updated upstream
-debug.ver = "1.0.0"
-debug.stage = "experimental-release"
-=======
+---@class Debug
+local debug = {}
+
 local w = require "ghostutil.Web"
 
 ---Contains all the messages from the function `log`
@@ -92,21 +91,11 @@ debug.checkOutdate = function(checkStage)
     end
 	return {verOutdate, {debug.ver}, {a, b}}
 end
->>>>>>> Stashed changes
 
 ---Prints out a GhostUtil error message
 ---@param message string The error message
 ---@param ifDebug boolean Is it visible only when `luaDebugMode` is turned on?
 debug.error = function(message, ifDebug)
-<<<<<<< Updated upstream
-    ifDebug = (ifDebug or true)
-    if ifDebug then
-        if luaDebugMode then
-            runHaxeCode("game.addTextToDebug('ERROR: "..scriptName..":GhostUtil: "..message.."', 0xFFFF0000);")
-        end
-    else
-        runHaxeCode("game.addTextToDebug('ERROR: "..scriptName..":GhostUtil: "..message.."', 0xFFFF0000);")
-=======
     ifDebug = ifDebug == nil and true or ifDebug
 
     if ifDebug then
@@ -121,7 +110,6 @@ debug.error = function(message, ifDebug)
             callMethod("addTextToDebug", {'ERROR: '..scriptName..':GhostUtil: '..message, getColorFromHex "FF0000"})
         else runHaxeCode("game.addTextToDebug('ERROR: "..scriptName..":GhostUtil: "..message.."', 0xFFFF0000);")
         end
->>>>>>> Stashed changes
     end
 end
 
@@ -133,12 +121,6 @@ debug.warning = function(message, ifDebug)
     ifDebug = ifDebug == nil and true or ifDebug
     if ifDebug then
         if luaDebugMode then
-<<<<<<< Updated upstream
-            runHaxeCode("game.addTextToDebug('WARNING: "..scriptName..":GhostUtil: "..message.."', 0xFFFFC803);")
-        end
-    else
-        runHaxeCode("game.addTextToDebug('WARNING: "..scriptName..":GhostUtil: "..message.."', 0xFFFFC803);")
-=======
             if version >= "0.7.0" then
                 callMethod("addTextToDebug", {'WARNING: '..scriptName..':GhostUtil: '..message, getColorFromHex "FFC803"})
             else runHaxeCode("game.addTextToDebug('WARNING: "..scriptName..":GhostUtil: "..message.."', 0xFFFFC803);")
@@ -149,11 +131,10 @@ debug.warning = function(message, ifDebug)
             callMethod("addTextToDebug", {'WARNING: '..scriptName..':GhostUtil: '..message, getColorFromHex "FFC803"})
         else runHaxeCode("game.addTextToDebug('WARNING: "..scriptName..":GhostUtil: "..message.."', 0xFFFFC803);")
         end
->>>>>>> Stashed changes
     end
 end
 
----Prints out a GhostUtil log
+---Prints out a log message and stores it in a table called "logs"
 ---@param message string Message to log
 ---@param ifDebug boolean Is it visible only when `luaDebugMode` is turned on?
 debug.log = function(message, ifDebug)
@@ -161,12 +142,6 @@ debug.log = function(message, ifDebug)
     ifDebug = ifDebug == nil and true or ifDebug
     if ifDebug then
         if luaDebugMode then
-<<<<<<< Updated upstream
-            runHaxeCode("game.addTextToDebug('LOG: "..scriptName..":GhostUtil: "..message.."', 0xFF00FF00);")
-        end
-    else
-        runHaxeCode("game.addTextToDebug('LOG: "..scriptName..":GhostUtil: "..message.."', 0xFF00FF00);")
-=======
             if version >= "0.7.0" then
                 callMethod("addTextToDebug", {'LOG: '..scriptName..':GhostUtil: '..message, getColorFromHex "00FF00"})
             else runHaxeCode("game.addTextToDebug('LOG: "..scriptName..":GhostUtil: "..message.."', 0xFF00FF00);")
@@ -177,8 +152,9 @@ debug.log = function(message, ifDebug)
             callMethod("addTextToDebug", {'LOG: '..scriptName..':GhostUtil: '..message, getColorFromHex "00FF00"})
         else runHaxeCode("game.addTextToDebug('LOG: "..scriptName..":GhostUtil: "..message.."', 0xFF00FF00);")
         end
->>>>>>> Stashed changes
     end
+
+    table.insert(debug.logs, message)
 end
 
-return debug;
+return debug

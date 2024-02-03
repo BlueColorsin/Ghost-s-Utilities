@@ -1,5 +1,8 @@
-local color = {};
+---@meta Color
+---@author GhostglowDev
+
 ---@class Color
+local color = {}
 
 local d = require "ghostutil.Debug"
 
@@ -22,13 +25,11 @@ color.CYAN = "0xFF00FFFF"
 ---@param spr string Object
 ---@param val string The target color. (RRGGBB)
 color.setSpriteColor = function(spr, val)
-    if spr ~= nil then setProperty(spr..".color", (val or "FFFFFF")) else
+    if spr ~= nil then setProperty(spr..".color", getColorFromHex (val or "FFFFFF")) else
         d.error("color.setSpriteColor:1: Expected a value")
     end
 end
 
-<<<<<<< Updated upstream
-=======
 ---Sets an object's color transform to the target values
 ---@param spr string Object
 ---@param multipliers table<number> Values: {redMult, blueMult, greenMult, alphaMult}
@@ -46,20 +47,13 @@ color.setSpriteColorTransform = function(spr, multipliers, offsets)
     end
 end
 
->>>>>>> Stashed changes
 ---Returns an object color
 ---@param spr string
 ---@return string 
 ---@nodiscard
 color.getSpriteColor = function(spr)
-<<<<<<< Updated upstream
-    if spr ~= nil then return getProperty(spr..".color") else
-        d.error("color.getSpriteColor:1: Expected a value")
-        -- Error format: (script_directory):GhostUtil: (function):(parameter): (error)
-=======
     if spr ~= nil then 
         return getProperty(spr..".color") 
->>>>>>> Stashed changes
     end
     
     d.error("color.getSpriteColor:1: Expected a value")
@@ -74,10 +68,10 @@ end
 ---@nodiscard
 color.rgbToHex = function(r, g, b)
     if r == nil or g == nil or b == nil then
-        d.warning("color.rgbToHex: Invalid value. nil -> 255")
+        d.warning("color.rgbToHex: Given an empty value. nil -> 255")
     end
     
     return string.format("%02X%02X%02X", (r or 255), (g or 255), (b or 255))
 end
 
-return color;
+return color

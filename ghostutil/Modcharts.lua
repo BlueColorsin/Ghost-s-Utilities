@@ -1,5 +1,8 @@
-local modchart = {};
----@class Modchart
+---@meta Modcharts
+---@author GhostglowDev
+
+---@class Modcharts
+local modchart = {}
 
 local u = require "ghostutil.Util"
 local d = require "ghostutil.Debug"
@@ -12,36 +15,45 @@ local d = require "ghostutil.Debug"
 ---@param withUi boolean Do you want the UI to be in their own "scroll" position?
 ---@param modchartTag string The tag for the `onTweenCompleted()` function (If empty: ModchartDownscroll<Note>, e.g. "ModchartDownscroll3")
 modchart.downscroll = function(note, toggle, duration, ease, withUi, modchartTag)
-    toggle = u.toBool(toggle);
+    toggle = u.toBool(toggle)
     if not u.isBool(toggle) then d.error("modchart.downscroll:2: Expected a boolean") end 
 
     local notes = {y = {defaultOpponentStrumY0,defaultOpponentStrumY1,defaultOpponentStrumY2,defaultOpponentStrumY3,defaultPlayerStrumY0,defaultPlayerStrumY1,defaultPlayerStrumY2,defaultPlayerStrumY3}}
     local strum = ((note <= 3) and "opponentStrums" or "playerStrums")
-    noteTweenY((((toggle and "ModchartDownscroll" or "ModchartUpscroll")..note)), note, notes.y[(note + 1)] + (toggle and (withUi and 510 or 470) or 0), (duration or 1), ease)
-    setPropertyFromGroup(strum, ((strum == "opponentStrums") and note or (note - 4)), "downScroll", (toggle and (not downscroll) or downscroll))
+    noteTweenY((((toggle and "ModchartDownscroll" or "ModchartUpscroll")..note)), note, notes.y[(note + 1)] + (toggle and (withUi and (downscroll and -510 or 510) or (downscroll and -470 or 470)) or 0), (duration or 1), ease)
+
+    setPropertyFromGroup(strum, (strum == "opponentStrums") and note or (note - 4), "downScroll", (toggle and (not downscroll)) or ((not toggle) and downscroll))
 
     for i = 0, getProperty("notes.length") do
         if getPropertyFromGroup("notes", i, "isSustainNote") and (getPropertyFromGroup("notes", i, "noteData") == ((strum == "opponentStrums") and note or (note - 4))) then
-            setPropertyFromGroup("notes", i, "flipY", (toggle and (not downscroll) or (downscroll)))
+            setPropertyFromGroup("notes", i, "flipY", (toggle and (not downscroll)) or ((not toggle) and downscroll))
         end
     end
 
     for i = 0, getProperty("unspawnNotes.length")-1 do
         if getPropertyFromGroup("unspawnNotes", i, "isSustainNote") and (getPropertyFromGroup("unspawnNotes", i, "noteData") == ((strum == "opponentStrums") and note or (note - 4))) then
-            setPropertyFromGroup("unspawnNotes", i, "flipY", (toggle and (not downscroll) or (downscroll)))
+            setPropertyFromGroup("unspawnNotes", i, "flipY", (toggle and (not downscroll)) or ((not toggle) and downscroll))
         end
     end
 
     if withUi then
-        doTweenY(("ModchartDownscrollUi_TimeTxt"), "timeTxt", (toggle and (downscroll and 19 or 676) or (downscroll and 676 or 19)), (duration or 1), ease)
-        doTweenY(("ModchartDownscrollUi_TimeBar"), "timeBar", (toggle and (downscroll and 31.25 or 688.25) or (downscroll and 688.25 or 31.25)), (duration or 1), ease)
-        doTweenY(("ModchartDownscrollUi_TimeBG"), "timeBarBG", (toggle and (downscroll and 27.25 or 684.25) or (downscroll and 684.25 or 27.25)), (duration or 1), ease)
-
-        doTweenY(("ModchartDownscrollUi_HealthBar"), "healthBar", (toggle and (downscroll and 644.8 or 83.2) or (downscroll and 83.2 or 644.8)), (duration or 1), ease)
-        doTweenY(("ModchartDownscrollUi_HealthBG"), "healthBarBG", (toggle and (downscroll and 640.8 or 79.2) or (downscroll and 79.2 or 640.8)), (duration or 1), ease)
-        doTweenY(("ModchartDownscrollUi_ScoreText"), "scoreTxt", (toggle and (downscroll and 676.8 or 115.2) or (downscroll and 115.2 or 676.8)), (duration or 1), ease)
-        doTweenY(("ModchartDownscrollUi_IconP1"), "iconP1", (toggle and (downscroll and 569.8 or 8.2) or (downscroll and 8.2 or 569.8)), (duration or 1), ease)
-        doTweenY(("ModchartDownscrollUi_IconP2"), "iconP2", (toggle and (downscroll and 569.8 or 8.2) or (downscroll and 8.2 or 569.8)), (duration or 1), ease)
+        -- thanks to laztrix for optimizing this
+        local objects = {
+            timeTxt = {19, 676},
+            timeBar = {31.25, 688.25},
+            timeBarBG = {27.25, 684.25},
+            healthBar = {644.8, 83.2},
+            healthBarBG = {640.8, 79.2},
+            scoreTxt = {676.8, 115.2},
+            iconP1 = {569.8, 8.2},
+            iconP2 = {569.8, 8.2}
+        }
+        
+        local toggleValue = downscroll and 1 or 2
+        
+        for name, pos in pairs(objects) do
+            doTweenY(("ModchartDownscrollUi_"..name), name, pos[toggleValue], duration or 1, ease)
+        end
     end
     runHaxeCode("game.callOnLuas('onModchart', ['"..(modchartTag or ("ModchartDownscroll"..note)).."']);")
 end
@@ -53,7 +65,7 @@ end
 ---@param ease string FlxEase
 ---@param modchartTag string Tag for the function `onTweenCompleted()` - (If empty: ModchartMiddlescroll)
 modchart.middlescroll = function(toggle, opponentVisible, duration, ease, modchartTag)
-    toggle = u.toBool(toggle);
+    toggle = u.toBool(toggle)
     if not u.isBool(toggle) then d.error("modchart.middlescroll:1: Expected a boolean") end
     local midPos = {dad = {82, 194, 971, 1083}, bf = {412, 524, 636, 748}}
     local notes = {x = {defaultOpponentStrumX0,defaultOpponentStrumX1,defaultOpponentStrumX2,defaultOpponentStrumX3,defaultPlayerStrumX0,defaultPlayerStrumX1,defaultPlayerStrumX2,defaultPlayerStrumX3}}
@@ -71,7 +83,7 @@ end
 ---@param ease string FlxEase
 ---@param modchartTag string Tag for the function `onTweenCompleted()` (If empty: ModchartSwapStrums)
 modchart.swapStrums = function(swap, duration, ease, modchartTag)
-    swap = u.toBool(swap);
+    swap = u.toBool(swap)
     if not u.isBool(swap) then d.error("modchart.swapStrums:1: Expected a boolean") end
     local notes = {x = {defaultOpponentStrumX0,defaultOpponentStrumX1,defaultOpponentStrumX2,defaultOpponentStrumX3,defaultPlayerStrumX0,defaultPlayerStrumX1,defaultPlayerStrumX2,defaultPlayerStrumX3}}
     for i = 0,7 do
@@ -80,4 +92,4 @@ modchart.swapStrums = function(swap, duration, ease, modchartTag)
     runHaxeCode("game.callOnLuas('onModchart', ['"..(modchartTag or ("ModchartSwapStrums")).."']);")
 end
 
-return modchart;
+return modchart
