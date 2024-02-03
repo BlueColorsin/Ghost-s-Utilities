@@ -1,3 +1,0 @@
-1. Go to the "ghostutil_v2_6_2" folder
-2. Copy-paste the folder "ghostutil" and put it on the main folder of Psych Engine
-   (The main folder is where the assets, mods, manifest and plugins folder and also where the executable (.exe) is)
