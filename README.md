@@ -28,7 +28,7 @@ and then, drag-n-drop the `callbackhandler.lua` file to `mods/scripts`
 * To use GhostUtil, you must import it's modules; use the `require` function on a variable.
 Since we're using base lua functions, this is not needed to be in a function.
                    
-![image](https://github.com/GhostglowDev/Ghost-s-Utilities/assets/108509756/aa15d81d-d20b-4685-b788-ed479765bfff)
+![image](https://github.com/GhostglowDev/Ghost-s-Utilities/assets/108509756/d2114b55-ad69-484d-bb8b-6135d544d671)
 
 * Let's try messing with the script!
 ```lua
