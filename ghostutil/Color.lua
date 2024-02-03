@@ -27,13 +27,43 @@ color.setSpriteColor = function(spr, val)
     end
 end
 
+<<<<<<< Updated upstream
+=======
+---Sets an object's color transform to the target values
+---@param spr string Object
+---@param multipliers table<number> Values: {redMult, blueMult, greenMult, alphaMult}
+---@param offsets table<number> Values: {redOffset, blueOffset, greenOffset, alphaOffset}
+color.setSpriteColorTransform = function(spr, multipliers, offsets)
+    local isLuaSprite = luaSpriteExists(spr)
+
+    if spr ~= nil then runHaxeCode("game."..(isLuaSprite and "getLuaObject("..spr..")" or spr)..".setColorTransform("..(multipliers[1] or 0)..", "..(multipliers[2] or 0)..", "..(multipliers[3] or 0)..", "..(multipliers[4] or 0)..", "..(offsets[1] or 0)..", "..(offsets[2] or 0)..", "..(offsets[3] or 0)..", "..(offsets[4] or 0)..");") else
+        d.error("color.setSpriteColorTransform:1: Expected a value")
+    end
+
+    for i = 1, 4 do
+        if multipliers[i] == nil then d.warning("color.setSpriteColorTransform:2["..i.."]: Given an empty value, nil -> 0") end
+        if offsets[i] == nil then d.warning("color.setSpriteColorTransform:3["..i.."]: Given an empty value, nil -> 0") end
+    end
+end
+
+>>>>>>> Stashed changes
 ---Returns an object color
 ---@param spr string
+---@return string 
+---@nodiscard
 color.getSpriteColor = function(spr)
+<<<<<<< Updated upstream
     if spr ~= nil then return getProperty(spr..".color") else
         d.error("color.getSpriteColor:1: Expected a value")
         -- Error format: (script_directory):GhostUtil: (function):(parameter): (error)
+=======
+    if spr ~= nil then 
+        return getProperty(spr..".color") 
+>>>>>>> Stashed changes
     end
+    
+    d.error("color.getSpriteColor:1: Expected a value")
+    return ""
 end
 
 ---Converts RGB to the Hex format (RRGGBB).
@@ -41,10 +71,12 @@ end
 ---@param g integer
 ---@param b integer
 ---@return string
-color.rgbToHex = function(r,g,b)
+---@nodiscard
+color.rgbToHex = function(r, g, b)
     if r == nil or g == nil or b == nil then
         d.warning("color.rgbToHex: Invalid value. nil -> 255")
     end
+    
     return string.format("%02X%02X%02X", (r or 255), (g or 255), (b or 255))
 end
 
