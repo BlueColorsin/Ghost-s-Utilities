@@ -9,6 +9,7 @@ GhostUtil provides a lot of unique variables and functions for you to mess aroun
 * Add the "ghostutil" folder to the main Psych Engine folder. (where the `.exe` is)
 ![image](https://github.com/GhostglowDev/Ghost-s-Utilities/assets/108509756/076a2654-46fd-4231-b4ba-2512f4ee880c)
 
+and then, drag-n-drop the `callbackhandler.lua` file to `mods/scripts`
 
 * To use GhostUtil, you must import it's modules; use the `require` function on a variable.
 Since we're using base lua functions, this is not needed to be in a function.                       
