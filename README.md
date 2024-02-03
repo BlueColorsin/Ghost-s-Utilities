@@ -3,16 +3,31 @@
 Ghost's Utilities or more known as GhostUtil is a module/addon to Psych Engine to make programming more easier and tidier.
 GhostUtil provides a lot of unique variables and functions for you to mess around!
 
+## 2.0 Contributors:
+*These are the peoples who contributes to GhostUtil atleast once*
+* [GhostglowDev](https://github.com/GhostglowDev)
+* [T-Bar](https://github.com/TBar09)
+* [galactic_2005](https://github.com/galactic2005)
+* [Meloomazy / Laztrix](https://github.com/Meloomazy)
+* [Apollo](https://github.com/apollooo7)
+* [Flain](https://www.youtube.com/channel/UCQ-WPpDkLX3PdKlTTtAqcsw)
+
+## Other Recommended Libraries:
+* [PEModUtils](https://github.com/galactic2005/PEModUtils) by galactic_2005
+* [T-Bar Utilities](https://github.com/TBar09/TBar-Utilities) by T-Bar
+
 ## The Basics
 
 ### How do I use GhostUtil?
 * Add the "ghostutil" folder to the main Psych Engine folder. (where the `.exe` is)
+
 ![image](https://github.com/GhostglowDev/Ghost-s-Utilities/assets/108509756/076a2654-46fd-4231-b4ba-2512f4ee880c)
 
 and then, drag-n-drop the `callbackhandler.lua` file to `mods/scripts`
 
 * To use GhostUtil, you must import it's modules; use the `require` function on a variable.
-Since we're using base lua functions, this is not needed to be in a function.                       
+Since we're using base lua functions, this is not needed to be in a function.
+                   
 ![image](https://github.com/GhostglowDev/Ghost-s-Utilities/assets/108509756/aa15d81d-d20b-4685-b788-ed479765bfff)
 
 * Let's try messing with the script!
