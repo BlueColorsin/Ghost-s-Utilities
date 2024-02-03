@@ -12,11 +12,6 @@ local d = require "ghostutil.Debug"
 ---@param val any Value to find 
 ---@return integer
 tbl.findpos = function(self, val)
-    if self == nil then
-        d.error("table.findpos:1: The argument tbl is nil!")
-        return 0
-    end 
-
     if type(self) ~= "table" then
         d.error("table.findpos:1: Expected table, got ".. type(self) .." instead.")
         return 0
@@ -35,11 +30,6 @@ end
 ---@param val any Value to check
 ---@return boolean
 tbl.exists = function(self, val)
-    if self == nil then
-        d.error("table.findpos:1: The argument tbl is nil!")
-        return false
-    end 
-
     if type(self) ~= "table" then
         d.error("table.findpos:1: Expected table, got ".. type(self) .." instead.")
         return false
