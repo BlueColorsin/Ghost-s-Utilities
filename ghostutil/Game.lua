@@ -115,7 +115,7 @@ game.getFps = function()
 end
 
 ---Fetches the current memory
----@return string Memory 
+---@return number Memory 
 game.getMemory = function()
     local r = ""
     if version >= "0.7.0" then
@@ -128,7 +128,7 @@ game.getMemory = function()
 end
 
 ---Fetches the current accuracy
----@return string Accuracy
+---@return number Accuracy
 game.getAccuracy = function()
     return m.floordecimal(rating * 100)
 end

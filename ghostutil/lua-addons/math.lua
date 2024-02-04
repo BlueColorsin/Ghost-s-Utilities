@@ -1,7 +1,7 @@
 ---@meta math
 ---@author GhostglowDev, Execute
 
----@class math
+---@class mathlib
 local mt = setmetatable({}, {
     __index = math,
 })
@@ -80,11 +80,11 @@ end
 ---@param dc number Target amount of decimals (Optional, default = 2)
 ---@return number
 mt.floordecimal = function(self, dc)
-    return string.format('%.'..(dc or 2)..'f', self)
+    return tonumber(string.format('%.'..(dc or 2)..'f', self))
 end
 
 mt.round = function(self)
-    return math.floor(self+5)
+    return math.floor(self+0.5)
 end
 
 ---Returns the midpoint of a certain distance

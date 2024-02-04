@@ -54,7 +54,6 @@ function removeActiveWindowTween(t)
     end
 end
 
----@private
 function window._createPost()
     addHaxeLibrary("Application", "lime.app")
     addHaxeLibrary("Image", "lime.graphics")
@@ -64,7 +63,6 @@ function window._createPost()
     }
 end
 
----@private
 function window._destroy()
     if #extraWindows < 1 then return end
     for i = 1, #extraWindows do

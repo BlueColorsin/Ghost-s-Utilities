@@ -84,7 +84,7 @@ str.trim = function(self)
     return (self:gsub("^%s*(.-)%s*$", "%1"))
 end
 
----Checks if the given string ends with `endsWith`, If fails returns false
+---Checks if the given string starts with `startsWith`, If fails returns false
 ---@param self string Value
 ---@param startsWith string The string to check it starts with
 ---@return boolean|nil
@@ -107,7 +107,7 @@ str.endswith = function(self, endsWith)
         return false
     end
 
-    return self:sub(string.len(self) - #endsWith) == endsWith
+    return self:sub(#self - #endsWith) == endsWith
 end
 
 return str

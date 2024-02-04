@@ -179,6 +179,13 @@ util.quickText = function(tag, txt, fieldWidth, pos, instantAdd, size, alignment
     end
 end
 
+local function getCameraFromString(cam)
+    if cam == "hud" then return "camHUD"
+    elseif cam == "other" then return "camOther"
+    elseif cam == "camHUD" or cam == "camOther" then return cam
+    else return "camGame" end
+end
+
 ---All-in-one `makeLuaSprite()`, made as a lua sprite counterpart to the function 'quickText'.
 ---@param tag string Sprite tag
 ---@param filePath string Sprite's file path, starts in the "images" folder (in assets or in mods)

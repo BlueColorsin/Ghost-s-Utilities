@@ -22,8 +22,6 @@ function media._createPost()
 	end
 
 	o.addHaxeLibrary("Paths")
-
-	debugPrint("Media: _createPost")
 end
 
 ---Plays a video... but better! must be an .mp4 and must be in 1280x720 (until further improvement)
