@@ -12,7 +12,7 @@ local activeTweens = {}
 local extraWindows = {}
 
 window.defaultDimensions = {width = 1280, height = 720}
-window.desktopDimensions = {width = nil, height = nil}
+window.desktopDimensions = {width = 0, height = 0}
 
 ---@author GhostglowDev, galactic_2005
 ---@param ease string
@@ -54,22 +54,23 @@ function removeActiveWindowTween(t)
     end
 end
 
-function window._createPost()
-    addHaxeLibrary("Application", "lime.app")
-    addHaxeLibrary("Image", "lime.graphics")
-    window.desktopDimensions = {
-        width = getPropertyFromClass("openfl.Lib", "application.window.display.bounds.width"),
-        height = getPropertyFromClass("openfl.Lib", "application.window.display.bounds.height")
-    }
-end
-
-function window._destroy()
-    if #extraWindows < 1 then return end
-    for i = 1, #extraWindows do
-        if extraWindows[i][2] then
-            runHaxeCode(
-                extraWindows[i][1].. [[.close();
-            ]])
+function _gcall(func)
+    if func == "createpost" then
+        addHaxeLibrary("Application", "lime.app")
+        addHaxeLibrary("Lib", "openfl")
+        addHaxeLibrary("Image", "lime.graphics")
+        window.desktopDimensions = {
+            width = getPropertyFromClass("openfl.Lib", "application.window.display.bounds.width"),
+            height = getPropertyFromClass("openfl.Lib", "application.window.display.bounds.height")
+        }
+    elseif func == "destroy" then
+        if #extraWindows < 1 then return end
+        for i = 1, #extraWindows do
+            if extraWindows[i][2] then
+                runHaxeCode(
+                    extraWindows[i][1].. [[.close();
+                ]])
+            end
         end
     end
 end

@@ -17,7 +17,8 @@ debug.stage = ""
 ---Show warnings when this GhostUtil version is outdated.
 debug.checkForUpdates = true
 
-function debug._createPost()
+function _gcall(func)
+	if func ~= "createpost" then return end 
     if (debug.checkOutdate()[1]) and debug.checkForUpdates then
         debug.warning("This version of GhostUtil is outdated!\nTo turn off this warning, set debug.checkForUpdates to false.", false)
     end

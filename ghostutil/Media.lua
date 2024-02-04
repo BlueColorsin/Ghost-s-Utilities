@@ -7,7 +7,8 @@ local media = {};
 local d = require "ghostutil.Debug"
 local o = require "ghostutil.OutdateHandler"
 
-function media._createPost()
+function _gcall(func)
+	if func ~= "createpost" then return end 
 	local libs = {
 		{'MP4Handler', 'vlc'},
 		{'FileSystem', 'sys'},

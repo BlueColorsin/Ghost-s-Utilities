@@ -12,7 +12,8 @@ local m = require "ghostutil.lua-addons.math"
 
 local didFix = false
 
-function game._destroy()
+function _gcall(func)
+	if func ~= "destroy" then return end 
     if didFix then
         runHaxeCode([[
             FlxG.signals.gameResized.remove(fixShaderCoordFix);
