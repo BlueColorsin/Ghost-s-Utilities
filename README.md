@@ -12,9 +12,8 @@ GhostUtil provides a lot of unique variables and functions for you to mess aroun
 * [Apollo](https://github.com/apollooo7)
 * [Flain](https://www.youtube.com/channel/UCQ-WPpDkLX3PdKlTTtAqcsw)
 
-## Other Recommended Libraries:
+## Other Recommended Library:
 * [PEModUtils](https://github.com/galactic2005/PEModUtils) by galactic_2005
-* [T-Bar Utilities](https://github.com/TBar09/TBar-Utilities) by T-Bar
 
 ## The Basics
 
