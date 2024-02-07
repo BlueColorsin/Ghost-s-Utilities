@@ -297,11 +297,11 @@ end
 ---@param duration? number The time it takes to complete
 ---@param ease? string FlxEase
 window.tweenResizeTo = function(tag, values, duration, ease)
-    if tag == nil or value == nil then d.error("window.windowTweenResize:".. (tag == nil and "1" or ((tag == nil and value == nil) and "1-2" or "2")) ..": Value is null/nil") return else
-        value, duration, ease = tostring(value), tostring(duration) or "1", ease or "linear"
+    if tag == nil or values == nil then d.error("window.windowTweenResize:".. (tag == nil and "1" or ((tag == nil and value == nil) and "1-2" or "2")) ..": Value is null/nil") return else
+        duration, ease = tostring(duration) or "1", ease or "linear"
         runHaxeCode(
             (version >= "0.7.0" and "game" or "PlayState.instance")..[[.modchartTweens.set(']]..tag..[[', 
-                FlxTween.tween(Application.current.window, {width: ]]..(u.isTable(values) and values[1] or values)..[[, height: ]]..(u.isTable(values) and values[1] or values)..[[}, ]]..duration..[[, {
+                FlxTween.tween(Application.current.window, {width: ]]..(u.isTable(values) and values[1] or values)..[[, height: ]]..(u.isTable(values) and values[2] or values)..[[}, ]]..duration..[[, {
                     ease: ]]..getFlxEaseByString(ease)..[[, 
                     onComplete: () -> { 
                         ]]..(version >= "0.7.0" and "game" or "PlayState.instance")..[[.callOnLuas("onTweenCompleted", ["]]..tag..[["]); 
